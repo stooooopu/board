@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,6 +27,7 @@ public class StudentsRestController {
 		// 학생 저장
 		// post는 body로 데이터를 받음
 		// @PostMapping("/api/v1/students") 
+		@CrossOrigin 
 		@PostMapping("/students")
 		public int callSaveStudents(@RequestBody StudentsVO vo) {
 			return studentsService.setStudents(vo);

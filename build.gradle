@@ -29,6 +29,8 @@ dependencies {
 	//JSP다운로드
 	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
 	implementation 'javax.servlet:jstl'
+	//spirng security
+	implementation("org.springframework.boot:spring-boot-starter-security")
 }
 
 tasks.named('test') {

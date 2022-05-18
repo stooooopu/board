@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +16,16 @@ public class StudentsService {
 
 	@Autowired
 	private StudentsMapper studentsMapper;
+	@Autowired
+	private PasswordEncoder passwordEncoder; // Bean등록을 해 줘서 autowired가능
 	
+	// 학생 저장
 	@Transactional(rollbackFor = {Exception.class})
 	public int setStudents(StudentsVO vo) {
+		// 학생 비밀번호 암호화
+		String password = vo.getStudentsPassword();
+		password = passwordEncoder.encode(password);
+		vo.setStudentsPassword(password);
 		return studentsMapper.insertStudents(vo);
 	}
 

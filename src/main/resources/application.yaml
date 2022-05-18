@@ -1,0 +1,30 @@
+# MyBatis 설정
+mybatis:
+   mapper-locations: classpath:/sqlmap/sqlmapper_*.xml
+   # 내가 VO를 작성한 위치
+   type-aliases-package: com.dw.board.vo
+   
+# MySQL 접속정보 설정
+# tab은 계층 표현이기 때문에 꼭 써줘야함
+spring:
+   datasource:
+      # sql을 실행시킬려면 always, 안할거면 never
+      initialization-mode: always
+      schema: classpath:init.sql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # dw라고 설정을 해 줘서 sql파일이 dw를 찾아서 저장
+      url: jdbc:mysql://localhost:3306/dw?useUnicode=true&charaterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: 5191
+#JSP 경로 설정
+   mvc :
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+      #css js images폴더 위치 설정
+      static-path-pattern: /resources/static/** 
+      
+      
+      
+      
+      

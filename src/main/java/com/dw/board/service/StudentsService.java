@@ -51,4 +51,24 @@ public class StudentsService {
 		vo.setStudentsId(StudentsId);
 		return studentsMapper.updateStudents(vo);
 	}
+	
+	// 가입된 학생인지 아닌지 체크
+	@Transactional(rollbackFor = {Exception.class})
+	public boolean isStuents(StudentsVO vo) {
+		
+		StudentsVO student = studentsMapper.selectStudentsOne(vo);
+		// 회원이 있는지 없는지 부터 체크
+		if(student == null) { // query결과가 null로 리턴
+			return false;
+		}
+		String inputPassword = vo.getStudentsPassword(); // HTML에 입력된 패스워드
+		String password = student.getStudentsPassword(); // DB에서 가져온 진짜 패스워드
+		
+		// passwordEncoder클래스에서 사용할 수 있는 method matches
+		// 괄호안에 두 값이 암호화 된 상태인데 서로 같은지를 비교해줌
+		if(!passwordEncoder.matches(inputPassword, password)) { // 비밀번호 체크
+			return false;
+		}
+		return true;
+	}
 }

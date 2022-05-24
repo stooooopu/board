@@ -6,7 +6,7 @@ import lombok.Data;
 public class BoardVO {
 	
 	private int boardId;
-	private int studentId;
+	private int studentsId;
 	private String title;
 	private String content;
 	private String updateAt;

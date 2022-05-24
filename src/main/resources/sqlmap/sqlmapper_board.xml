@@ -1,31 +1,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dw.board.mapper.BoardMapper" >
 
-	<select id="selectAllBoardList" resultType="BoardVO">
+	<!-- join으로 조회할 때 resultType을 map으로 -->
+	<select id="selectAllBoardList" resultType="map">
 		SELECT
-			board_id AS boardId,
-			students_id AS studentId,
-			title,
-			content,
-			update_at AS updateAt,
-			create_at AS createAt
-		FROM board
+			b.board_id AS boardId,
+			s.students_id AS studentsId,
+			s.students_name AS studentsName,
+			b.title,
+			b.content,
+			<!-- DATE_FORMAT으로 년 월 일 만 출력, update에는 데이터가 없으면(IFNULL)이면 -추가로직 -->
+			IFNULL(DATE_FORMAT(b.update_at,'%Y-%m-%d'),'-') AS updateAt,
+			DATE_FORMAT(b.create_at,'%Y-%m-%d') AS createAt
+		FROM board AS b
+		INNER JOIN students AS s
+		ON b.students_id = s.students_id
 	</select>
 	
 	<insert id="insertBoard">
-		INSERT INTO Board
+		INSERT INTO board
 		(
-			title,
 			students_id,
+			title,
 			content,
 			create_at
 		)
 		VALUES
 		(
+			#{studentsId},
 			#{title},
-			#{studentId},
 			#{content},
-			NOW()		
+			NOW()
 		)
 	</insert>
 	
@@ -33,4 +38,14 @@
 		DELETE FROM board
 		WHERE board_id = #{boardId}
 	</delete>
+	
+	<update id="updateBoard">
+	UPDATE board
+	SET 
+		title = #{title},
+		content = #{content},
+		update_at = NOW()
+	WHERE board_id = #{boardId}
+	
+	</update>
 </mapper>

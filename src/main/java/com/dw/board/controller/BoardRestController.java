@@ -1,11 +1,13 @@
 package com.dw.board.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,7 @@ public class BoardRestController {
 
 	@Autowired
 	private BoardService boardService;
+	
 	// 게시판 저장
 	@CrossOrigin
 	@PostMapping("/board")
@@ -31,7 +34,7 @@ public class BoardRestController {
 	// 게시판 조회
 	@CrossOrigin
 	@GetMapping("/board")
-	public List<BoardVO> callBoardList(){
+	public List<Map<String,Object>> callBoardList(){
 		return boardService.getAllBoardList();
 	}
 	
@@ -40,5 +43,12 @@ public class BoardRestController {
 	@DeleteMapping("/board/id/{id}")
 	public int callDeleteBoard(@PathVariable("id") int boardId) {
 		return boardService.deleteBoard(boardId);
+	}
+	
+	@CrossOrigin
+	@PatchMapping("board/id/{id}")
+	public int callUpdateBoard(@RequestBody BoardVO vo,
+			@PathVariable("id") int boardId) {
+		return boardService.updateBoard(vo, boardId);
 	}
 }

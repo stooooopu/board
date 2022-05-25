@@ -60,11 +60,12 @@ public class StudentsRestController {
 		public List<Map<String, Object>> callStudentsListByMap(HttpSession httpSession){
 			
 			// 현재 login메소드에 session로직을 추가해서 login을 먼저 실행 안하면 name = null
-			String name = (String)httpSession.getAttribute("name");
-			System.out.println("session에서 가져온 이름은 ==> "+name);
-			if(name == null) {
-				return null;
-			}
+//			session데이터 가져오기 (추후 로직구현 예정)
+//			String name = (String)httpSession.getAttribute("name");
+//			System.out.println("session에서 가져온 이름은 ==> "+name);
+//			if(name == null) {
+//				return null;
+//			}
 			return studentsService.getAllStudentsMap();
 		}
 		

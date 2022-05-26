@@ -30,4 +30,6 @@ public interface BoardMapper {
 	public int deleteBoard(int boardId);
 	
 	public int updateBoard(BoardVO vo);
+	
+	public BoardVO selectBoardContent(int boardId);
 }

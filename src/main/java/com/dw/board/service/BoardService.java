@@ -39,4 +39,9 @@ public class BoardService {
 		vo.setBoardId(boardId);
 		return boardMapper.updateBoard(vo);
 	}
+	
+	// get
+	public BoardVO getBoardContent(int boardId) {
+		return boardMapper.selectBoardContent(boardId);
+	}
 }

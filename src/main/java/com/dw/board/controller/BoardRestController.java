@@ -24,31 +24,40 @@ public class BoardRestController {
 	@Autowired
 	private BoardService boardService;
 	
-	// 게시판 저장
+	// 게시물 저장 (C)
 	@CrossOrigin
 	@PostMapping("/board")
 	public int callSaveBoard(@RequestBody BoardVO vo) {
 		return boardService.setBoard(vo);
 	}
 	
-	// 게시판 조회
+	// 게시물 조회 (R)
 	@CrossOrigin
 	@GetMapping("/board")
 	public List<Map<String,Object>> callBoardList(){
 		return boardService.getAllBoardList();
 	}
 	
-	// 게시물 삭제
+	// 게시물 삭제 (D)
 	@CrossOrigin
-	@DeleteMapping("/board/id/{id}")
-	public int callDeleteBoard(@PathVariable("id") int boardId) {
+	@DeleteMapping("/board/boardId/{id}")
+	public int callRemoveBoard(@PathVariable("id") int boardId) {
 		return boardService.deleteBoard(boardId);
 	}
 	
+	// 게시물 업데이트(U)
 	@CrossOrigin
-	@PatchMapping("board/id/{id}")
-	public int callUpdateBoard(@RequestBody BoardVO vo,
-			@PathVariable("id") int boardId) {
+	@PatchMapping("/board/boardId/{id}")
+	public int callUpdateBoard(@PathVariable("id") int boardId,
+	@RequestBody BoardVO vo) {
 		return boardService.updateBoard(vo, boardId);
 	}
+
+	// 게시물 상세보기(R)
+	@CrossOrigin
+	@GetMapping("/board/boardId/{id}")
+	public BoardVO callBoard(@PathVariable("id") int boardId) {
+		return boardService.getBoardContent(boardId);
+	}
+
 }

@@ -2,6 +2,7 @@
 <mapper namespace="com.dw.board.mapper.BoardMapper" >
 
 	<!-- join으로 조회할 때 resultType을 map으로 -->
+	<!-- 게시물 조회 -->
 	<select id="selectAllBoardList" resultType="map">
 		SELECT
 			b.board_id AS boardId,
@@ -17,6 +18,7 @@
 		ON b.students_id = s.students_id
 	</select>
 	
+	<!-- 게시물 저장 -->
 	<insert id="insertBoard">
 		INSERT INTO board
 		(
@@ -34,11 +36,14 @@
 		)
 	</insert>
 	
+
+	<!-- 게시물 삭제 -->
 	<delete id="deleteBoard">
 		DELETE FROM board
 		WHERE board_id = #{boardId}
 	</delete>
 	
+	<!-- 게시물 수정 -->
 	<update id="updateBoard">
 	UPDATE board
 	SET 
@@ -46,6 +51,19 @@
 		content = #{content},
 		update_at = NOW()
 	WHERE board_id = #{boardId}
-	
 	</update>
+	
+	<!-- 게시물 상세보기 -->
+	<select id="selectBoardContent" resultType="BoardVO">
+		SELECT
+			board_id AS boardId,
+			students_id As studentsId,
+			title,
+			content,
+			update_at AS updateAt,
+			create_at AS createAt
+		FROM board
+		WHERE
+			board_id=#{boardId}
+	</select>
 </mapper>

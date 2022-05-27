@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.dw.board.vo.BoardVO;
 
@@ -32,4 +33,9 @@ public interface BoardMapper {
 	public int updateBoard(BoardVO vo);
 	
 	public BoardVO selectBoardContent(int boardId);
+	
+	public int updateBoardViews(BoardVO vo);
+	
+	// 파라미터가 2개이상이면 @Param필수
+	public List<Map<String,Object>> selectSearchBoardList(@Param("studentsName") String studentsName);
 }

@@ -44,4 +44,27 @@ public class BoardService {
 	public BoardVO getBoardContent(int boardId) {
 		return boardMapper.selectBoardContent(boardId);
 	}
+	
+	// update
+	@Transactional(rollbackFor = {Exception.class})
+	public int getUpdateBoardView(int boardId) {
+		
+		// 게시판 번호를 이용해서 조회수컬럼을 selecte
+		BoardVO vo = boardMapper.selectBoardContent(boardId);
+		int views = vo.getCnt();
+		
+		// 조회수를 1 증가시킴
+		++views; 
+		vo.setCnt(views);
+		vo.setBoardId(boardId);
+
+		// update
+		return boardMapper.updateBoardViews(vo);
+	}
+	
+	// get
+	public List<Map<String,Object>> getSearchBoardList(String writer){
+		return boardMapper.selectSearchBoardList(writer);
+	}
+	
 }

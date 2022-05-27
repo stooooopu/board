@@ -10,6 +10,7 @@
 			s.students_name AS studentsName,
 			b.title,
 			b.content,
+			b.cnt,
 			<!-- DATE_FORMAT으로 년 월 일 만 출력, update에는 데이터가 없으면(IFNULL)이면 -추가로직 -->
 			IFNULL(DATE_FORMAT(b.update_at,'%Y-%m-%d'),'-') AS updateAt,
 			DATE_FORMAT(b.create_at,'%Y-%m-%d') AS createAt
@@ -56,14 +57,36 @@
 	<!-- 게시물 상세보기 -->
 	<select id="selectBoardContent" resultType="BoardVO">
 		SELECT
-			board_id AS boardId,
-			students_id As studentsId,
 			title,
 			content,
 			update_at AS updateAt,
-			create_at AS createAt
+			create_at AS createAt,
+			cnt
 		FROM board
 		WHERE
 			board_id=#{boardId}
+	</select>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="updateBoardViews">
+	UPDATE board
+	SET cnt = #{cnt}
+	WHERE board_id = #{boardId}
+	</update>
+	
+	<select id="selectSearchBoardList" resultType="map">
+		SELECT
+			b.board_id AS boardId,
+			s.students_id AS studentsId,
+			s.students_name AS studentsName,
+			b.title,
+			b.content,
+			b.cnt,
+			IFNULL(DATE_FORMAT(b.update_at,'%Y-%m-%d'),'-') AS updateAt,
+			DATE_FORMAT(b.create_at,'%Y-%m-%d') AS createAt
+		FROM board AS b
+		INNER JOIN students AS s
+		ON b.students_id = s.students_id
+		WHERE s.students_name Like CONCAT('%',#{studentsName},'%')
 	</select>
 </mapper>

@@ -67,4 +67,8 @@ public class BoardService {
 		return boardMapper.selectSearchBoardList(writer);
 	}
 	
+	// 통계
+	public Map<String, Object> getBoardStatistics(){
+		return boardMapper.selectBoardStatistics();
+	}
 }

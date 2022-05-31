@@ -38,4 +38,6 @@ public interface BoardMapper {
 	
 	// 파라미터가 2개이상이면 @Param필수
 	public List<Map<String,Object>> selectSearchBoardList(@Param("studentsName") String studentsName);
+	
+	public Map<String,Object> selectBoardStatistics();
 }

@@ -61,9 +61,11 @@ public class PageHandler {
 	 * @author : ji_U
 	 * @date : 2022. 5. 31.
 	 * comment : 현재블록의 처음 페이지
+	 * 다음 버튼을 눌렀을 때 다음 블록의 시작을 정해줌
 	 */
 	public void setStartPage(int nowBlock) {
 		// 시작페이지 = (현재 블록 * 한 블록 최대 페이지 수) - (한 블록 최대 페이지 수 - 1)
+		// nowBlock의 제일 첫 페이지
 		this.startPage = (nowBlock * this.navigaterPages) - (this.navigaterPages - 1);
 	}
 	

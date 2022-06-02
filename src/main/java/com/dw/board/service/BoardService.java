@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dw.board.mapper.BoardMapper;
 import com.dw.board.vo.BoardVO;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class BoardService {
@@ -22,8 +23,10 @@ public class BoardService {
 		return boardMapper.insertBoard(vo);
 	}
 	
-	// get
-	public List<Map<String,Object>> getAllBoardList(){
+	// get 게시판 전체조회
+	// pageNum : 현재 페이지 / pageSize : 한 페이지에 몇개의 게시물을 보여줄지
+	public List<Map<String,Object>> getAllBoardList(int pageNum, int pageSize){
+		PageHelper.startPage(pageNum, pageSize);
 		return boardMapper.selectAllBoardList();
 	}
 	

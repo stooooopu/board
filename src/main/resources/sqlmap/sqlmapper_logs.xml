@@ -20,7 +20,7 @@
 			#{ip},
 			#{latitude},
 			#{longitude},
-			#{url}, 
+			#{url},
 			#{httpMethod},
 			#{createAt}
 		)

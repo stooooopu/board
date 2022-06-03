@@ -11,6 +11,6 @@ public class LogsVO {
 	private String longitude; // 경도 127.4229992
 	private String url;
 	private String httpMethod;
-	private String createAt; 
+	private String createAt;
 	
 }

@@ -48,7 +48,7 @@ public class Interceptor implements HandlerInterceptor{
 		vo.setUrl(url);
 		vo.setIp(ip);
 		vo.setHttpMethod(httpMethod);
-		vo.setLatitude("36.3286904"); 
+		vo.setLatitude("36.3286904");
 		vo.setLongitude("127.4229992");
 		vo.setCreateAt(time);
 		

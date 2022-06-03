@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.dw.board.vo.LogsVO;
+import com.dw.board.vo.LogsVO; 
 
 // log등의 기록 데이터는 insert(intercetor에서) & select(controller에서)만 구현
 @Mapper

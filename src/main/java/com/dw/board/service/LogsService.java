@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dw.board.mapper.LogsMapper;
 import com.dw.board.vo.LogsVO;
-
+ 
 // controller에서 intercept하기때문에 controller가따로 필요 없음
 @Service
 public class LogsService {

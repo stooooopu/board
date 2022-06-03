@@ -25,3 +25,14 @@ CREATE TABLE IF NOT EXISTS board -- 게시판 테이블
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- run할 때 이 파일을 실행시킬지 결정은 yaml에서 함
 -- DDL을 스키마라고 함
+-- 접속이력 테이블
+CREATE TABLE IF NOT EXISTS board_logs
+(
+	log_id BIGINT(20) AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT '로그 아이디',
+	ip VARCHAR(50) COMMENT '아이피',
+	latitude VARCHAR(20) COMMENT '위도',
+	longitude VARCHAR(20) COMMENT '경도',
+	url VARCHAR(100) COMMENT '요청 url',
+	http_method VARCHAR(10) COMMENT 'http method',
+	create_at DATETIME COMMENT '접속 시간'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

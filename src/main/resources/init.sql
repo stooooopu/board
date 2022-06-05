@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS board -- 게시판 테이블
     content VARCHAR(100) COMMENT '글 내용',
     update_at DATETIME COMMENT '수정 날짜',
     create_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '작성 날짜',
+    cnt integer(255) DEFAULT 0 COMMENT '조회수',
     CONSTRAINT board_students_id_fk FOREIGN KEY (students_id) REFERENCES students(students_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- run할 때 이 파일을 실행시킬지 결정은 yaml에서 함

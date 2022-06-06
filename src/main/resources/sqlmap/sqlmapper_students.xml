@@ -15,11 +15,10 @@
 	</insert>
 	
 	<!-- AS로 VO에 있는 필드변수 이름을 별칭으로 줘서 mapping을 해 줌 -->
-	<select id="selectAllStudentsList" resultType="StudentsVO">
+	<select id="selectAllStudentsList" resultType="map">
 		SELECT
 			students_id AS studentsId,
 			students_name AS studentsName,
-			students_password AS studentsPassword,
 			create_at AS createAt
 		FROM students
 	</select>

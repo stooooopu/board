@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dw.board.mapper.StudentsMapper;
 import com.dw.board.vo.StudentsVO;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class StudentsService {
@@ -29,7 +30,12 @@ public class StudentsService {
 		return studentsMapper.insertStudents(vo);
 	}
 
-	public List<StudentsVO> getAllStudentsList(){
+//	public List<StudentsVO> getAllStudentsList(){
+//		return studentsMapper.selectAllStudentsList();
+//	}
+	
+	public List<Map<String,Object>> getAllStudentsList(int pageNum, int pageSize){
+		PageHelper.startPage(pageNum, pageSize);
 		return studentsMapper.selectAllStudentsList();
 	}
 	

@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dw.board.service.StudentsService;
 import com.dw.board.vo.StudentsVO;
+import com.github.pagehelper.PageInfo;
 
 @RestController
 // 중복되는 url을 @RequestMapping으로 전역변수처럼 뺄 수 있음
@@ -50,10 +52,21 @@ public class StudentsRestController {
 		}
 		
 		// 학생 조회
+//		@CrossOrigin
+//		@GetMapping("/students")
+//		public List<StudentsVO> callStudentsList(){
+//			return studentsService.getAllStudentsList();
+//		}
+		
+		@CrossOrigin
 		@GetMapping("/students")
-		public List<StudentsVO> callStudentsList(){
-			return studentsService.getAllStudentsList();
+		public PageInfo<Map<String,Object>> callStudentsList(@RequestParam("pageNum")int pageNum,
+				@RequestParam("pageSize")int pageSize){
+			
+			List<Map<String, Object>> list = studentsService.getAllStudentsList(pageNum,pageSize); 
+			return new PageInfo<Map<String,Object>>(list);
 		}
+		
 		
 		// map으로 학생 조회
 		@GetMapping("/students/map")

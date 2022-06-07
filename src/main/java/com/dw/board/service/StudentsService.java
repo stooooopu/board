@@ -54,7 +54,13 @@ public class StudentsService {
 	
 	@Transactional(rollbackFor = {Exception.class})
 	public int getUpdateStudents(StudentsVO vo,int StudentsId) {
+		
 		vo.setStudentsId(StudentsId);
+		
+		String password = vo.getStudentsPassword();
+		password = passwordEncoder.encode(password);
+		vo.setStudentsPassword(password);
+		
 		return studentsMapper.updateStudents(vo);
 	}
 	
@@ -76,5 +82,10 @@ public class StudentsService {
 			return false;
 		}
 		return true;
+	}
+	
+	// 학생이름 검색
+	public List<Map<String, Object>> getStudentsSearchList(String writer){
+		return studentsMapper.studentsSearchList(writer);
 	}
 }

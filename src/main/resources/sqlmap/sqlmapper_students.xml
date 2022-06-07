@@ -66,4 +66,13 @@
 		FROM students
 		WHERE students_name = #{studentsName}
 	</select>
+	
+	<select id="studentsSearchList" resultType="map">
+		SELECT
+			students_id AS studentsId,
+			students_name AS studentsName,
+			create_at AS createAt
+		FROM students
+		WHERE students_name LIKE CONCAT('%',#{studentsName},'%')
+	</select>
 </mapper>

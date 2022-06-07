@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.dw.board.vo.StudentsVO;
 
@@ -58,4 +59,13 @@ public interface StudentsMapper {
 	 * comment : 학생이름으로 학생정보 조회
 	 */
 	public StudentsVO selectStudentsOne(StudentsVO vo);
+	
+	/**
+	 * @param studentsName
+	 * @return
+	 * @author : ji_U
+	 * @date : 2022. 6. 7.
+	 * comment : 학생이름 검색
+	 */
+	public List<Map<String,Object>> studentsSearchList(@Param("studentsName") String studentsName);
 }

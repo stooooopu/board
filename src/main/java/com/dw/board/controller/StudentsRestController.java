@@ -83,19 +83,28 @@ public class StudentsRestController {
 		}
 		
 		// 특정 학생 조회(PK로 조회예정)
+		@CrossOrigin
 		@GetMapping("/students/id/{id}")
 		public StudentsVO callStudents(@PathVariable("id") int studentsId) {
 			return studentsService.getStudents(studentsId);
 		}
 		
+		@CrossOrigin
 		@DeleteMapping("/students/id/{id}")
 		public int callRemoveStudents(@PathVariable("id") int studentsId) {
 			return studentsService.deleteStudents(studentsId);
 		}
 		
+		@CrossOrigin
 		@PatchMapping("/students/id/{id}")
 		public int callUpdateStudents(@PathVariable("id") int studentsID, 
 				@RequestBody StudentsVO vo) {
 			return studentsService.getUpdateStudents(vo, studentsID);
+		}
+		
+		@CrossOrigin
+		@GetMapping("/students/search")
+		public List<Map<String,Object>> callStudentsList(@RequestParam("writer") String writer){
+			return studentsService.getStudentsSearchList(writer);
 		}
 }

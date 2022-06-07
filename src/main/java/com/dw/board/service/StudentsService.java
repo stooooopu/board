@@ -85,7 +85,8 @@ public class StudentsService {
 	}
 	
 	// 학생이름 검색
-	public List<Map<String, Object>> getStudentsSearchList(String writer){
+	public List<Map<String, Object>> getStudentsSearchList(int pageNum, int pageSize, String writer){
+		PageHelper.startPage(pageNum, pageSize);
 		return studentsMapper.studentsSearchList(writer);
 	}
 }

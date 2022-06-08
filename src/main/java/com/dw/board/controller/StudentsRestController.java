@@ -106,7 +106,8 @@ public class StudentsRestController {
 		@CrossOrigin
 		@GetMapping("/students/search")
 		public PageInfo<Map<String,Object>> callStudentsList(@RequestParam("writer") String writer,
-				@RequestParam("pageNum")int pageNum, @RequestParam("pageSize")int pageSize){
+				@RequestParam("pageNum")int pageNum,
+				@RequestParam("pageSize")int pageSize){
 			List<Map<String, Object>> list = studentsService.getStudentsSearchList(pageNum,pageSize,writer);
 			return new PageInfo<Map<String,Object>>(list);
 		}

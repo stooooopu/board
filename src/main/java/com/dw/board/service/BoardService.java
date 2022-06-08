@@ -66,7 +66,8 @@ public class BoardService {
 	}
 	
 	// get
-	public List<Map<String,Object>> getSearchBoardList(String writer){
+	public List<Map<String,Object>> getSearchBoardList(String writer, int pageNum, int pageSize){
+		PageHelper.startPage(pageNum, pageSize);
 		return boardMapper.selectSearchBoardList(writer);
 	}
 	

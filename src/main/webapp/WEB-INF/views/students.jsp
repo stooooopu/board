@@ -48,10 +48,10 @@
 						class="icon"><ion-icon name="home-outline"></ion-icon></span> <span
 						class="title">Dashboard</span>
 				</a></li>
-				<li><a href="/students"> <span class="icon"><ion-icon
+				<li><a href="/students?pageNum=1&pageSize=10"> <span class="icon"><ion-icon
 								name="person-outline"></ion-icon></span> <span class="title">Students</span>
 				</a></li>
-				<li><a href="/logs"> <span class="icon"><ion-icon
+				<li><a href="/logs?pageNum=1&pageSize=10"> <span class="icon"><ion-icon
 								name="lock-closed-outline"></ion-icon></span> <span class="title">logs</span>
 				</a></li>
 				<li><a href="#"> <span class="icon"><ion-icon
@@ -173,7 +173,7 @@
         $('.update-popup').css('display','none');
     })
 </script>
-<script>
+<script type="text/javascript">
 	getPageNum();
 
 	// 페이지 번호 알아내는 함수

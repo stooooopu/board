@@ -66,10 +66,10 @@
 						class="icon"><ion-icon name="home-outline"></ion-icon></span> <span
 						class="title">Dashboard</span>
 				</a></li>
-				<li><a href="/students"> <span class="icon"><ion-icon
+				<li><a href="/students?pageNum=1&pageSize=10"> <span class="icon"><ion-icon
 								name="person-outline"></ion-icon></span> <span class="title">Students</span>
 				</a></li>
-				<li><a href="/logs"> <span class="icon"><ion-icon
+				<li><a href="/logs?pageNum=1&pageSize=10"> <span class="icon"><ion-icon
 								name="lock-closed-outline"></ion-icon></span> <span class="title">logs</span>
 				</a></li>
 				<li><a href="#"> <span class="icon"><ion-icon
@@ -279,6 +279,7 @@
 
 	// 통계 함수
 	function getBoardStatistics(){
+		// .ajax로 불러온 데이터는 RestController에서 불러온데이터
 		    $.ajax({
 		        url : '/api/v1/board/statistics', // input의 값을 가져옴
 		        type : 'GET',
@@ -300,6 +301,7 @@
 	
 	
 	// 전체 조회 함수
+	// controller(Spring안에 함께 있는 데이터)에서 직접 위에 데이터를 넣어줌
 	function getBoardList(pageNum, pageSize){
 		location.href="/board?pageNum="+pageNum+"&pageSize="+pageSize;
 	}

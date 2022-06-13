@@ -48,13 +48,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/students">
+                    <a href="/students?pageNum=1&pageSize=10">
                         <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
                         <span class="title">Students</span>                
                     </a>
                 </li>
                 <li>
-                    <a href="/logs">
+                    <a href="/logs?pageNum=1&pageSize=10">
                         <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
                         <span class="title">logs</span>                
                     </a>
@@ -173,6 +173,9 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+ <!-- 아마 여기에서 에러가 난듯
+ 		도메인을 kakaoMap에 추가해야할듯한데 뒤에 포트번호 5000,5001,5002가 뭘뜻하는지 잊음
+ 		학원가서 확인할 것 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6d952a4c1fcd339237cc3a977487d364"></script>
 <script>
     let list = document.querySelectorAll('.navigation li');
@@ -185,6 +188,7 @@
 <script>
     $('.logs-popup').css('display', 'none')
 
+    getPageNum();
     // 페이지 번호 알아내는 함수
 	function getPageNum(){
 		var pageNum = $('#nowPageNum').val();
@@ -194,7 +198,7 @@
 	}
     
     function getLogsList(pageNum, pageSize){
-    	location.href=http:"localhost:8080/api/v1/logs?pageNum="+pageNum+"&pageSize="+pageSize;
+    	location.href="/logs?pageNum="+pageNum+"&pageSize="+pageSize;
     }
 
     function getPopup(log_id){

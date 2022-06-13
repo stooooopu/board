@@ -93,6 +93,23 @@
                  </div>
                  <table>
                      <thead>
+                     <c:choose>
+							<c:when test="${fn:length(pageHelper.list) > 0}">
+								<c:forEach items="${pageHelper.list}" var="item">
+									<tr onclick="getLogsList(${item.logId})">
+										<td>${item.ip}</td>
+										<td>${item.url}</td>
+										<td>${item.httpMethod}</td>
+										<td>${item.createAt}</td>
+									</tr>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td colspan=6 style="text-align: center;">게시글이 없습니다</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
                          <tr>
                             <th>로그 번호</th>
                             <th>IP</th>
@@ -133,7 +150,18 @@
                     <a href="#">4</a>
                     <a href="#">5</a>
                     <a href="#">Next</a> -->
+                    <c:if test="${pageHelper.hasPreviousPage}">
+						<a onclick="getLogsList(${pageHelper.pageNum-1},10)">Previous</a>
+					</c:if>
+					<c:forEach begin="${pageHelper.navigateFirstPage }"
+						end="${pageHelper.navigateLastPage }" var="pageNum">
+						<a id="pageNum${pageNum}" onclick="getLogsList(${pageNum},10)">${pageNum}</a>
+					</c:forEach>
+					<c:if test="${pageHelper.hasNextPage}">
+						<a onclick="getLogsList(${pageHelper.pageNum+1},10)">Next</a>
+					</c:if>
                  </div>
+                 <input id="nowPageNum" type="hidden" value="${pageHelper.pageNum }">
              </div>
          </div>
     </div>
@@ -155,17 +183,28 @@
     list.forEach((item) => {item.addEventListener('mouseover',activeLink)});
 </script>
 <script>
-    $('.logs-popup').css('display', 'none');
+    $('.logs-popup').css('display', 'none')
+
+    // 페이지 번호 알아내는 함수
+	function getPageNum(){
+		var pageNum = $('#nowPageNum').val();
+
+		$('#pageNum'+pageNum).css('backgroundColor','#287bff'); // id가 pageNum + pageNumber 문자를 합친거
+		$('#pageNum'+pageNum).css('color','#fff');
+	}
+    
+    function getLogsList(pageNum, pageSize){
+    	location.href=http:"localhost:8080/api/v1/logs?pageNum="+pageNum+"&pageSize="+pageSize;
+    }
 
     function getPopup(log_id){
-        console.log(log_id)
         $('.logs-popup').css('display', 'block');
+        
         $.ajax({
             url : '/api/v1/logs/logId/'+log_id,
             type : 'GET',
             dataType : 'json',
             success : function(response){
-                    console.log(response)
 
                     var latitude = response.latitude;
                     var longitude = response.longitude;
@@ -199,52 +238,7 @@
         $('.logs-popup').css('display', 'none');
      });
 
-    getLogsList(1, 10);
 
-    function getLogsList(pageNum, pageSize){
-        $.ajax({
-            url : 'http://localhost:8080/api/v1/logs?pageNum='+pageNum+'&pageSize='+pageSize,
-          type : 'GET',
-          dataType : 'json',
-          success : function(response){
-              console.log(response)
-              var html = '';
-              var len = response.list.length;
-              console.log(len)
-              if(len > 0){
-                  for(var i=0; i<len; i++){
-                      html +=  "<tr onclick = getPopup("+response.list[i].log_id+")><td>"+
-                          response.list[i].log_id+"</td><td>"+
-                          response.list[i].ip+"</td><td>"+
-                          response.list[i].url+"</td><td>"+
-                          response.list[i].http_method+"</td><td>"+
-                          response.list[i].create_at+"</td></tr>";
-                  }
-
-                  var paginationHtml = '';
-
-                  if(response.hasPreviousPage){ // 이전 페이지가 true라면
-                    paginationHtml += '<a onclick="getLogsList('+(response.pageNum-1)+','+pageSize+')" href="#">Previous</a>';
-                  }
-                  for(var i=0; i<response.navigatepageNums.length; i++){ //페이지 번호만큼 for문 실행
-                    paginationHtml += '<a id="pageNum'+response.navigatepageNums[i]+'" onclick="getLogsList('+response.navigatepageNums[i]+','+pageSize+')" href="#">'+response.navigatepageNums[i]+'</a>';
-                  }
-                  if(response.hasNextPage){ // 다음 페이지가 true라면
-                    paginationHtml += '<a onclick="getLogsList('+(response.pageNum+1)+','+pageSize+')"  href="#">Next</a>';
-                  }
-                  $('.pagination').children().remove();
-                  $('.pagination').append(paginationHtml);
-
-                  $('#pageNum'+pageNum).css('backgroundColor','#287bff');
-                  $('#pageNum'+pageNum).css('color','#fff');
-              } else {
-                  // 게시글 없음 로직 구현
-                  html += '<tr><td colspan=6 style = "text-align : center;">게시글이 없습니다</td></tr>';
-              }
-              $('#boardData').children().remove();
-              $('#boardData').append(html); // tbody에 jsonData 렌더링
-          }
-        })
-    }
+    
 </script>
 </html>

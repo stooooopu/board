@@ -23,7 +23,7 @@ public class LogsController {
 			@RequestParam("pageNum")int pageNum,
 			@RequestParam("pageSize")int pageSize) {
 		List<Map<String, Object>> list = logsService.getLogsList(pageNum, pageSize);
-		
+		System.out.println(list);
 		// page정보(pageNum, pageSize ... 이들어있는 클래스)+list(내가 작성한 boardList)
 		PageInfo<Map<String,Object>> pageInfo = new PageInfo<Map<String,Object>>(list);
 		

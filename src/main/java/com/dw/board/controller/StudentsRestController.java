@@ -30,14 +30,16 @@ public class StudentsRestController {
 	private StudentsService studentsService;
 	
 		// 중요한 정보를 서버에 전송할 때 post사용
+		// jsp프로젝트 Home controller 참고
 		@CrossOrigin
 		@PostMapping("/login")
 		public boolean callIsLogin(@RequestBody StudentsVO vo, HttpSession httpSession) {
-			boolean isLogin = studentsService.isStuents(vo);
-			if(isLogin) {
-				// session에 저장하는 방식 key, value
-				httpSession.setAttribute("name", "jiyoo");
-			}
+			boolean isLogin = studentsService.isStuents(vo, httpSession);
+//			postman으로 session한거임 이제는 필요 없어
+//			if(isLogin) {
+//				// session에 저장하는 방식 key, value
+//				httpSession.setAttribute("name", "jiyoo");
+//			}
 			return isLogin;
 		}
 	

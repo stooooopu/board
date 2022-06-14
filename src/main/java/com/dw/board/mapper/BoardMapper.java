@@ -27,6 +27,8 @@ public interface BoardMapper {
 	 * comment : 전체 보드 조회
 	 */
 	public List<Map<String,Object>> selectAllBoardList();
+	// 위에 전체 조회는 기존에서 사용했으니까 테스트용 따로 만든거
+	public List<Map<String,Object>> selectAllBoardListTest(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
 	
 	public int deleteBoard(int boardId);
 	
@@ -40,4 +42,6 @@ public interface BoardMapper {
 	public List<Map<String,Object>> selectSearchBoardList(@Param("studentsName") String studentsName);
 	
 	public Map<String,Object> selectBoardStatistics();
+	
+	public int selectAllBoardListTotal();
 }

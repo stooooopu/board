@@ -93,23 +93,6 @@
                  </div>
                  <table>
                      <thead>
-                     <c:choose>
-							<c:when test="${fn:length(pageHelper.list) > 0}">
-								<c:forEach items="${pageHelper.list}" var="item">
-									<tr onclick="getLogsList(${item.logId})">
-										<td>${item.ip}</td>
-										<td>${item.url}</td>
-										<td>${item.httpMethod}</td>
-										<td>${item.createAt}</td>
-									</tr>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td colspan=6 style="text-align: center;">게시글이 없습니다</td>
-								</tr>
-							</c:otherwise>
-						</c:choose>
                          <tr>
                             <th>로그 번호</th>
                             <th>IP</th>
@@ -119,6 +102,24 @@
                          </tr>
                      </thead>
                      <tbody id="boardData">
+                         <c:choose>
+							<c:when test="${fn:length(pageHelper.list) > 0}">
+								<c:forEach items="${pageHelper.list}" var="item">
+									<tr onclick="getPopup(${item.log_id})">
+										<td>${item.log_id}</td>
+										<td>${item.ip}</td>
+										<td>${item.url}</td>
+										<td>${item.http_method}</td>
+										<td>${item.create_at}</td>
+									</tr>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td colspan=6 style="text-align: center;">게시글이 없습니다</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
                          <!-- <tr onclick="getPopup()">
                             <td>1</td>
                             <td>192.158.0.252</td>
@@ -175,7 +176,9 @@
     ></script>
  <!-- 아마 여기에서 에러가 난듯
  		도메인을 kakaoMap에 추가해야할듯한데 뒤에 포트번호 5000,5001,5002가 뭘뜻하는지 잊음
- 		학원가서 확인할 것 -->
+ 		학원가서 확인할 것 
+ 		5000~5003번까지 카카오 포트번호 
+ 		집에서 할 때는 8080추가-->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6d952a4c1fcd339237cc3a977487d364"></script>
 <script>
     let list = document.querySelectorAll('.navigation li');
@@ -201,11 +204,11 @@
     	location.href="/logs?pageNum="+pageNum+"&pageSize="+pageSize;
     }
 
-    function getPopup(log_id){
+    function getPopup(logId){
         $('.logs-popup').css('display', 'block');
         
         $.ajax({
-            url : '/api/v1/logs/logId/'+log_id,
+            url : '/api/v1/logs/logId/'+logId,
             type : 'GET',
             dataType : 'json',
             success : function(response){
@@ -229,10 +232,16 @@
                    // 마커를 생성합니다
                    var marker = new kakao.maps.Marker({
                        position: markerPosition
+                       
+                    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+       	          // marker.setMap(null);
                    });
                    // 마커가 지도 위에 표시되도록 설정합니다
                    marker.setMap(map);
-                }
+                },
+    	        error: function (request, statis, error) {
+    		          console.log(error);
+    		        },
             }); //ajax end
 
 

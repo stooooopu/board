@@ -16,8 +16,11 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 우리가 만든 interceptor를 spring에 등록
-		registry.addInterceptor(interceptor).excludePathPatterns("/api/v1/logs");
+		// (url)은 intercept하지마 : .excludePathPatterns("/api/v1/logs");
+		// login하지도 않은 사람의 session은 필요 없음
+		registry.addInterceptor(interceptor)
+		.excludePathPatterns("/api/v1/logs","/login","/join","/api/v1/login","/resources/static/css/*","/resources/static/js/*");
+		
 	}
-	// (url)은 intercept하지마 : .excludePathPatterns("/api/v1/logs");
 	
 }

@@ -23,7 +23,7 @@ public class StudentsController {
 			@RequestParam("pageNum")int pageNum,
 			@RequestParam("pageSize")int pageSize) {
 		List<Map<String,Object>> list = studentsService.getAllStudentsList(pageNum, pageSize);
-		
+		System.out.println(list);
 		PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String,Object>>(list);
 		
 		map.addAttribute("pageHelper", pageInfo);

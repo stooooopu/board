@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,6 +54,20 @@ public class Interceptor implements HandlerInterceptor{
 		vo.setCreateAt(time);
 		
 		logsService.setLogs(vo);
+		
+		
+		// 모든controller, restController에 세션을 가져와서 확인할 수 없으니 interceptor에 추가한것
+		// session 체크
+		HttpSession session = request.getSession();
+		if(session.getAttribute("studentsId") != null) {
+			int studentsId = (int)session.getAttribute("studentsId");
+			String studentsName = (String)session.getAttribute("studentsName");
+			System.out.println("session에서 가져온 id ==> "+studentsId);
+			System.out.println("session에서 가져온 name ==> "+studentsName);
+		}
+		if(session.getAttribute("studentsId") == null) {
+			response.sendRedirect("/login"); // session값이 없으면 "/login"경로로 redirect
+		}
 		
 		return true;
 	}

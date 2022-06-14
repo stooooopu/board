@@ -1,11 +1,14 @@
 package com.dw.board.utils;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 @Data
+@Component
 public class PageHandler {
 
-	//-- limit #{startPage}, #{pageSize}
+	// limit #{startPage}, #{pageSize}
 	// 이때 startPage는 0부터 시작해야 하기때문에 서비스로직에서 -1
 	private int total; // 전체 게시물 수
 	private int pageNum; // 현재 페이지
@@ -75,11 +78,11 @@ public class PageHandler {
 	 * @date : 2022. 5. 31.
 	 * comment : 현재블록의 마지막 페이지
 	 */
-	public void setEndPage(int lastBlock) {
+	public void setEndPage(int lastBlock, int pages) {
 		// 마지막 페이지 = 현재블록 * 한블록 최대 페이지 수
 		this.endPage = nowBlock * this.navigaterPages;
 		if(nowBlock == this.lastBlock) {
-			this.endPage = total;
+			this.endPage = pages;
 		}
 	}
 

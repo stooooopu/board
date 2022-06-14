@@ -56,16 +56,48 @@
               data: JSON.stringify(jsonData), // 이걸 안쓰면 jsonType이 아닌 문자로 인식
               success : function(response){
                 if(response){
-                  location.href = 'board/index.html'; //페이지 이동
+                  location.href = '/board?pageNum=1&pageSize=10'; //페이지 이동
                 }else{
                   alert('회원정보를 확인 해 주세요');
                   return false;
                 }
-                
               }
-            });
+          });
       });
+      
+      // userPassword에서 엔터를 치면 로그인
+      $('#userPassword').keyup(function(key){
+    	  if(key.keyCode == 13){
+    		  var userId = $('#userId').val();
+    	        var userPassword = $('#userPassword').val();
 
+    	        if(userId =='' || userPassword == ''){
+    	          alert('빈칸을 입력 해 주세요');
+    	          $('#userId').focus();
+    	          return false;
+    	          }
+    	          var jsonData = {
+    	            studentsName : userId,
+    	            studentsPassword : userPassword
+    	          }
+    	          $.ajax({
+    	              url : '/api/v1/login',
+    	              type : 'POST',
+    	              // postman에서 json선택하는게 밑에 contentType
+    	              contentType : 'application/json', // 서버에 json타입으로 보낼 예정(요청)
+    	              dataType : 'json', // 서버에 결과를 json으로 응답 받겠다
+    	              data: JSON.stringify(jsonData), // 이걸 안쓰면 jsonType이 아닌 문자로 인식
+    	              success : function(response){
+    	                if(response){
+    	                  location.href = '/board?pageNum=1&pageSize=10'; //페이지 이동
+    	                }else{
+    	                  alert('회원정보를 확인 해 주세요');
+    	                  return false;
+    	                }
+    	              }
+    	          });
+    	  }
+      })
    </script>
   </body>
 </html>

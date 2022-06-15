@@ -19,7 +19,14 @@ public class WebConfig implements WebMvcConfigurer {
 		// (url)은 intercept하지마 : .excludePathPatterns("/api/v1/logs");
 		// login하지도 않은 사람의 session은 필요 없음
 		registry.addInterceptor(interceptor)
-		.excludePathPatterns("/api/v1/logs","/login","/join","/api/v1/login","/resources/static/css/*","/resources/static/js/*");
+		.excludePathPatterns("/api/v1/logs",
+				"/login",
+				"/join",
+				"/api/v1/login",
+				"/resources/static/css/*",
+				"/resources/static/images/*",
+				"/resources/static/js/*",
+				"/error");
 		
 	}
 	

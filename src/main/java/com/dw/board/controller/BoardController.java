@@ -40,6 +40,9 @@ public class BoardController {
 		// pageHelper = json형식으로 page정보가 들어있는 클래스
 		map.addAttribute("pageHelper", pageInfo);
 		
+		// 강제 에러발생 없는 세션가져오기
+//		int x = (int) session.getAttribute("x");
+		
 		// 이미 interceptor에서 null처리 함
 		int studentsId = (int)session.getAttribute("studentsId");
 		map.addAttribute("studentsId", studentsId);

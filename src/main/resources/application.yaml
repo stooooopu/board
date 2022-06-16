@@ -1,12 +1,50 @@
+# 포트수정
+# server:
+#    port: 수정하고싶은포트번호
+
+# 개발 버전 설정
+spring: 
+   profiles:
+      active: dev
+
 # MyBatis 설정
 mybatis:
    mapper-locations: classpath:/sqlmap/sqlmapper_*.xml
    # 내가 VO를 작성한 위치
    type-aliases-package: com.dw.board.vo
+  
+# 페이징처리    
+pagehelper:
+   # helper-dialect: 사용할 DB
+   helper-dialect: mysql
+   # 0페이지 요청이 들어오면 자동으로 1페이지로, 13페이지 까지 있는데 14페이지 요청이 들어오면 자동으로 13페이지로 변환
+   reasonable: true
    
 # MySQL 접속정보 설정
 # tab은 계층 표현이기 때문에 꼭 써줘야함
+---
 spring:
+   profiles: env # 운영모드
+   datasource:
+      # sql을 실행시킬려면 always, 안할거면 never
+      initialization-mode: always
+      schema: classpath:init.sql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # dw라고 설정을 해 줘서 sql파일이 dw를 찾아서 저장
+      url: jdbc:mysql://stopu-database.cwhbpqtuopi8.ap-northeast-2.rds.amazonaws.com:3306/dw?useUnicode=true&charaterEncoding=utf-8&serverTimezone=UTC
+      username: admin
+      password: Stopu1277
+#JSP 경로 설정
+   mvc :
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+      #css js images폴더 위치 설정
+      static-path-pattern: /resources/static/** 
+
+---
+spring:
+   profiles: dev # 개발 모드
    datasource:
       # sql을 실행시킬려면 always, 안할거면 never
       initialization-mode: always
@@ -22,14 +60,5 @@ spring:
          prefix: /WEB-INF/views/
          suffix: .jsp
       #css js images폴더 위치 설정
-      static-path-pattern: /resources/static/** 
-      
-pagehelper:
-   # helper-dialect: 사용할 DB
-   helper-dialect: mysql
-   # 0페이지 요청이 들어오면 자동으로 1페이지로, 13페이지 까지 있는데 14페이지 요청이 들어오면 자동으로 13페이지로 변환
-   reasonable: true
-      
-      
-      
+      static-path-pattern: /resources/static/**
       

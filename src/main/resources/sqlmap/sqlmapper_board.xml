@@ -19,7 +19,9 @@
 		ON b.students_id = s.students_id
 		LIMIT #{pageNum},#{pageSize}
 	</select>
-	<!-- 0번째부터 10개만 가져오겠다 -->
+	<!-- limit 0번째부터 10개만 가져오겠다 -->
+	
+	
 	<select id="selectAllBoardList" resultType="map">
 		SELECT
 			b.board_id AS boardId,
